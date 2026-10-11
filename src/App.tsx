@@ -11,6 +11,7 @@ type IconName =
   | "arrow"
   | "check"
   | "delivery"
+  | "facebook"
   | "location"
   | "mail"
   | "phone"
@@ -125,11 +126,13 @@ function ActionLink({
   className = "",
   href,
   icon,
+  ariaLabel,
 }: {
   children: ReactNode;
   className?: string;
   href: string;
   icon?: IconName;
+  ariaLabel?: string;
 }) {
   const isExternal = href.startsWith("http");
   return createElement(
@@ -137,6 +140,7 @@ function ActionLink({
     {
       className: `action-link ${className}`,
       href,
+      "aria-label": ariaLabel,
       target: isExternal ? "_blank" : undefined,
       rel: isExternal ? "noreferrer" : undefined,
     },
@@ -150,6 +154,7 @@ function Icon({ name }: { name: IconName }) {
     arrow: <><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></>,
     check: <path d="m5 12 4 4L19 6" />,
     delivery: <><path d="M10 17h4V5H2v12h3" /><path d="M14 9h4l4 4v4h-3" /><circle cx="7.5" cy="17.5" r="2.5" /><circle cx="16.5" cy="17.5" r="2.5" /></>,
+    facebook: <path d="M14 8h3V4h-3a5 5 0 0 0-5 5v2H6v4h3v5h4v-5h3l1-4h-4V9a1 1 0 0 1 1-1Z" />,
     location: <><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></>,
     mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></>,
     phone: <path d="M22 16.9v3a2 2 0 0 1-2.2 2A19.8 19.8 0 0 1 3.1 5.2 2 2 0 0 1 5.1 3h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L9.1 10.8a16 16 0 0 0 4.1 4.1l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z" />,
@@ -168,6 +173,10 @@ export default function App() {
   const t = copy[language];
   const isArabic = language === "ar";
   const whatsappUrl = "https://wa.me/97455870450";
+  const phoneNumber = "+974 5008 9701";
+  const whatsappNumber = "+974 5587 0450";
+  const facebookUrl =
+    "https://www.facebook.com/people/Holy-dream-TC/61594914301204/?mibextid=wwXIfr&rdid=myISbrEDI5dl46cO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1TGTydwLBY%2F%3Fmibextid%3DwwXIfr";
 
   return (
     <div className="site-shell" dir={isArabic ? "rtl" : "ltr"}>
@@ -194,10 +203,18 @@ export default function App() {
             ))}
           </nav>
           <div className="nav-actions">
-            <div className="language-toggle" role="button" tabIndex={0} onClick={() => setLanguage(isArabic ? "en" : "ar")} onKeyDown={(event) => event.key === "Enter" && setLanguage(isArabic ? "en" : "ar")}>
-              <span>{isArabic ? "EN" : "ع"}</span> {t.arabic}
+            <div className="language-toggle" role="button" aria-label={isArabic ? "Switch to English" : "Switch to Arabic"} tabIndex={0} onClick={() => setLanguage(isArabic ? "en" : "ar")} onKeyDown={(event) => event.key === "Enter" && setLanguage(isArabic ? "en" : "ar")}>
+              <span>{isArabic ? "EN" : "ع"}</span><span className="language-label">{t.arabic}</span>
             </div>
-            <ActionLink href={whatsappUrl} className="button button-dark"><Icon name="whatsapp" /> WhatsApp</ActionLink>
+            <ActionLink href={whatsappUrl} className="button button-dark nav-contact-button nav-whatsapp" ariaLabel={`WhatsApp ${whatsappNumber}`}>
+              <Icon name="whatsapp" /><span className="nav-button-label">WhatsApp {whatsappNumber}</span>
+            </ActionLink>
+            <ActionLink href="tel:+97450089701" className="button button-outline nav-contact-button nav-phone" ariaLabel={`Call ${phoneNumber}`}>
+              <Icon name="phone" /><span className="nav-button-label">Call {phoneNumber}</span>
+            </ActionLink>
+            <ActionLink href={facebookUrl} className="button nav-contact-button nav-facebook" ariaLabel="Visit Holy Dream on Facebook">
+              <Icon name="facebook" /><span className="nav-button-label">Facebook</span>
+            </ActionLink>
           </div>
         </div>
       </header>
