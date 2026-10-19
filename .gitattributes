@@ -147,3 +147,4 @@
 
 # Keep site images as regular Git blobs so Vercel receives the actual files.
 src/assets/shop/*.png -filter -diff -merge -text
+src/assets/gallery/*.png -filter -diff -merge -text
