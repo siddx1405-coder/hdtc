@@ -5,6 +5,9 @@ import powerExtension from "./assets/shop/power-extension.png";
 import laserMeter from "./assets/shop/laser-meter-main.png";
 import angleGrinder from "./assets/shop/angle-grinder.png";
 import pvcWelder from "./assets/shop/pvc-welder.png";
+import galleryOne from "./assets/gallery/product-1.png";
+import galleryTwo from "./assets/gallery/product-2.png";
+import galleryThree from "./assets/gallery/product-3.png";
 
 type Language = "en" | "ar";
 type IconName =
@@ -121,6 +124,24 @@ const products = [
   { image: powerExtension, name: "Veban Multi-Socket Extension", category: "Electrical" },
 ];
 
+const galleryItems = [
+  {
+    image: galleryOne,
+    title: "PVC Float Valve Range",
+    description: "Reliable float valves for water tanks and utility systems.",
+  },
+  {
+    image: galleryTwo,
+    title: "Premium Plumbing Accessories",
+    description: "High-quality hose, shower, and valve products for daily use.",
+  },
+  {
+    image: galleryThree,
+    title: "Basin and Sink Mixers",
+    description: "Stylish and durable mixer solutions for modern bathrooms.",
+  },
+];
+
 function ActionLink({
   children,
   className = "",
@@ -176,7 +197,7 @@ export default function App() {
   const phoneNumber = "+974 5008 9701";
   const whatsappNumber = "+974 5587 0450";
   const facebookUrl =
-    "https://www.facebook.com/people/Holy-dream-TC/61594914301204/?mibextid=wwXIfr&rdid=myISbrEDI5dl46cO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1TGTydwLBY%2F%3Fmibextid%3DwwXIfr";
+    "https://www.facebook.com/people/Holy-dream-TC/61594914301204/?rdid=qWDktemxovgjCLtc&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1E8T8KhGPe%2F";
 
   return (
     <div className="site-shell" dir={isArabic ? "rtl" : "ltr"}>
@@ -254,6 +275,31 @@ export default function App() {
                   <span className="category-icon"><Icon name={index === 3 ? "tools" : index === 2 ? "delivery" : "check"} /></span>
                   <Heading className="card-title" level={3}>{name}</Heading>
                   <p>{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section gallery-section">
+          <div className="container">
+            <div className="section-heading split-heading gallery-header">
+              <Heading className="section-title">Featured product photos</Heading>
+              <div className="gallery-cta">
+                <p>Explore our latest products and stay updated with the Holy Dream Facebook page.</p>
+                <ActionLink href={facebookUrl} className="button button-orange gallery-button" ariaLabel="Visit Holy Dream on Facebook">
+                  <Icon name="facebook" />Follow on Facebook
+                </ActionLink>
+              </div>
+            </div>
+            <div className="gallery-grid">
+              {galleryItems.map((item) => (
+                <article className="gallery-card" key={item.title}>
+                  <img src={item.image} alt={item.title} />
+                  <div className="gallery-copy">
+                    <Heading className="gallery-title" level={3}>{item.title}</Heading>
+                    <p>{item.description}</p>
+                  </div>
                 </article>
               ))}
             </div>
